@@ -18,6 +18,21 @@ export default function Calendar() {
   const [newEventTitle, setNewEventTitle] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<DateSelectArg | null>(null);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedEvents = localStorage.getItem('events');
+      if (savedEvents) {
+        setCurrentEvents(JSON.parse(savedEvents));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('events', JSON.stringify(currentEvents));
+    }
+  }, [currentEvents]);
+
   const handleDateClick = (selected: DateSelectArg) => {
     setSelectedDate(selected);
     setIsDialogOpen(true);
@@ -95,8 +110,21 @@ export default function Calendar() {
           headerToolbar={{
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek ',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay ',
           }}
+          initialView="dayGridMonth"
+          editable={true}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          select={handleDateClick}
+          eventClick={handleEventClick}
+          eventsSet={(events) => setCurrentEvents(events)}
+          initialEvents={
+            typeof window !== 'undefined'
+              ? JSON.parse(localStorage.getItem('events') || '[]')
+              : []
+          }
         />
       </div>
     </div>
