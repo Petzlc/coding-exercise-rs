@@ -92,6 +92,11 @@ export default function Calendar() {
         <FullCalendar
           height={'85vh'}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek ',
+          }}
         />
       </div>
     </div>
