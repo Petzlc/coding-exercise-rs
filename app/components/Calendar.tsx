@@ -1,5 +1,6 @@
 'use client';
 
+import { DialogHeader } from '@/components/ui/dialog';
 import {
   DateSelectArg,
   EventApi,
@@ -10,6 +11,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { Dialog, DialogContent, DialogTitle } from '@radix-ui/react-dialog';
 import React, { useEffect, useState } from 'react';
 
 export default function Calendar() {
@@ -127,6 +129,23 @@ export default function Calendar() {
           }
         />
       </div>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add New Event Details</DialogTitle>
+          </DialogHeader>
+          <form className="space-x-5 mb-4" onSubmit={handleAddEvent}>
+            <input
+              type="text"
+              placeholder="Event Title"
+              value={newEventTitle}
+              onChange={(event) => setNewEventTitle(event.target.value)}
+              required
+              className="border border-gray-200 p-3 rounded-md text-lg"
+            ></input>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
