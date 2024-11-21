@@ -143,6 +143,12 @@ export default function Calendar() {
               required
               className="border border-gray-200 p-3 rounded-md text-lg"
             ></input>
+            <button
+              className="bg-green-500 text-white p-3 mt-5 rounded-md"
+              type="submit"
+            >
+              Add
+            </button>
           </form>
         </DialogContent>
       </Dialog>
